@@ -289,36 +289,65 @@
 
             <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
               <div class="swiper-wrapper">
+  
+                <script>                  
+                  const url = 'https://docs.google.com/spreadsheets/d/1KXxcsyZipBZoxhTo54pX36SFutQhQWkkTj-WTqYjzTM/gviz/tq?tqx=out:csv&sheet=COLABORADORES_SITE';
 
-                <div class="swiper-slide">
-                  <div class="testimonial-box">
-                    <div class="author-test">
-                      <img src="assets/img/testimonial-2.jpg" alt="" class="rounded-circle b-shadow-a">
-                      <span class="author">Xavi Alonso</span>
-                    </div>
-                    <div class="content-test">
-                      <p class="description lead">
-                        Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Lorem ipsum dolor sit amet,
-                        consectetur adipiscing elit.
-                      </p>
-                    </div>
-                  </div>
-                </div><!-- End testimonial item -->
+                  // var request = new XMLHttpRequest();
+                  // request.open('GET', url, true);
+                  // request.responseType = 'text';
 
-                <div class="swiper-slide">
-                  <div class="testimonial-box">
-                    <div class="author-test">
-                      <img src="assets/img/testimonial-4.jpg" alt="" class="rounded-circle b-shadow-a">
-                      <span class="author">Marta Socrate</span>
-                    </div>
-                    <div class="content-test">
-                      <p class="description lead">
-                        Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Lorem ipsum dolor sit amet,
-                        consectetur adipiscing elit.
-                      </p>
-                    </div>
-                  </div>
-                </div><!-- End testimonial item -->
+                  // request.onload = function() {
+                  //   if (request.status === 200) {
+                  //     var csvData = request.responseText;
+                  //     //Faça algo com os dados do CSV
+
+                  //     var linhas = csvData.split('\n');
+                  //     for (var i = 0; i < linhas.length; i++) {
+                  //       var colunas = linhas[i].split(",");
+                  //       var arrayCSV = [];
+                  //       arrayCSV.push(colunas);
+                  //       console.log(arrayCSV);
+                  
+                  //     }
+                  //   }
+                  // };
+
+
+                  //request.send();
+
+                  fetch(url)
+                    .then(function(response) {
+                      if (response.ok) {
+                        return response.text();
+                      } else {
+                        throw new Error('Error: ' + response.status);
+                      }
+                    })
+                    .then(function(data) {
+                      var arrayCSV = data.split('\n');
+                    })
+                    .catch(function(error) {
+                      console.error(error);
+                    });
+
+                  console.log(arrayCSV);
+
+                  // console.log(arrayCSV);
+                  // for (var key in arrayCSV) {
+                  //   console.log(key);
+                  //   console.log("Hello World!");
+                  // }
+
+                  // for(var i = 0; i < arrayCSV.length; ++i)
+                  // {
+                  //   console.log("Hello!");
+                  // }
+
+
+                    
+                </script>
+
               </div>
               <div class="swiper-pagination"></div>
             </div>
