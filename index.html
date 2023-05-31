@@ -280,36 +280,63 @@
 
             <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
               <div class="swiper-wrapper">
+  
+                <script>
+                  let xhr = new XMLHttpRequest();
 
-                <div class="swiper-slide">
-                  <div class="testimonial-box">
-                    <div class="author-test">
-                      <img src="assets/img/testimonial-2.jpg" alt="" class="rounded-circle b-shadow-a">
-                      <span class="author">Xavi Alonso</span>
-                    </div>
-                    <div class="content-test">
-                      <p class="description lead">
-                        Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Lorem ipsum dolor sit amet,
-                        consectetur adipiscing elit.
-                      </p>
-                    </div>
-                  </div>
-                </div><!-- End testimonial item -->
+                  xhr.open('GET', 'https://docs.google.com/spreadsheets/d/1KXxcsyZipBZoxhTo54pX36SFutQhQWkkTj-WTqYjzTM/gviz/tq?tqx=out:csv&sheet=COLABORADORES_SITE', false);
 
-                <div class="swiper-slide">
-                  <div class="testimonial-box">
-                    <div class="author-test">
-                      <img src="assets/img/testimonial-4.jpg" alt="" class="rounded-circle b-shadow-a">
-                      <span class="author">Marta Socrate</span>
-                    </div>
-                    <div class="content-test">
-                      <p class="description lead">
-                        Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Lorem ipsum dolor sit amet,
-                        consectetur adipiscing elit.
-                      </p>
-                    </div>
-                  </div>
-                </div><!-- End testimonial item -->
+                  var response;
+                  try {
+                    xhr.send();
+                    if (xhr.status != 200) {
+                      alert(`Error ${xhr.status}: ${xhr.statusText}`);
+                    } else {
+                      response = xhr.response;
+                    }
+                  } catch(err) { // instead of onerror
+                    alert("Request failed");
+                  }
+
+                  var arrayCSV = [];
+                  var linhas = response.split('\n');
+                  for (var i = 0; i < linhas.length; i++) {
+                    var colunas = linhas[i].split(",");
+                    arrayCSV.push(colunas);
+                  }
+
+                  for(var i = 1; i<arrayCSV.length;i++)
+                  {
+                    var nome = arrayCSV[i][0];
+                    var desc = arrayCSV[i][1];
+                    var foto = arrayCSV[i][2];
+
+                    nome = nome.replace(/"/g, '');
+                    desc = desc.replace(/"/g, '');
+                    foto = foto.replace(/"/g, '');
+
+                    console.log(foto);
+
+                    var texto = `<div class="swiper-slide">
+                      <div class="testimonial-box">
+                        <div class="author-test">
+                          <img src="${foto}" width="300" height="200" alt="" class="rounded-circle b-shadow-a">
+                          <span class="author">${nome}</span>
+                        </div>
+                        <div class="content-test">
+                          <p class="description lead">
+                            ${desc}
+                          </p>
+                        </div>
+                      </div>
+                    </div><!-- End testimonial item -->`;
+
+                    console.log(texto);
+
+                    document.write(texto);
+                  }
+                </script>
+
               </div>
               <div class="swiper-pagination"></div>
             </div>
